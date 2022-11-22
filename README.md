@@ -68,3 +68,19 @@ Program received signal SIGSEGV, Segmentation fault.
 
 So it looks like PLT is not initialized (static linking?)
 
+further reducing it down, seems like just the following steps under alpine/3.16 are enough to trigger the crash:
+
+```
+cargo new foo
+cd foo
+cargo add --features derive serde 
+cargo add async-std
+cargo add tide
+# if the following line is there, there is no crash
+cargo add surf
+# or the following line
+sed -e '1iuse tide::Request;' -i src/main.rs
+cargo run
+
+
+
