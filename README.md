@@ -44,3 +44,27 @@ Program received signal SIGSEGV, Segmentation fault.
 #13 0x00007fab4240ed23 in _start ()
 (gdb) 
 ```
+
+let's try putting a breakpoint:
+
+```
+(gdb) b OPENSSL_init_ssl
+Breakpoint 1 at 0x7f31a1b9a800
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /async-rust-test-temp/target/debug/litir 
+warning: Error disabling address space randomization: Operation not permitted
+
+Breakpoint 1, 0x00007fbf4c51d800 in OPENSSL_init_ssl@plt ()
+(gdb) s
+Single stepping until exit from function OPENSSL_init_ssl@plt,
+which has no line number information.
+
+Program received signal SIGSEGV, Segmentation fault.
+0x0000000000068806 in ?? ()
+(gdb) 
+```
+
+So it looks like PLT is not initialized (static linking?)
+
