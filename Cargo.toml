@@ -9,4 +9,6 @@ edition = "2021"
 serde = { version = "1.0", features = ["derive"] }
 async-std = "1.12.0"
 tide = "0.16.0"
+
+# comment out the next line to avoid the crash
 surf = "2.3.2"
